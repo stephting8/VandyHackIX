@@ -8,8 +8,7 @@
        }
    .center {
        float: center;
-       margin-left: auto;
-       margin-right: auto;
+       margin: auto;
        width: 25%;
        padding: 50px;
    }
@@ -25,13 +24,29 @@
        width: 30%;
        padding: 20px;
    }
+
+a:link, a:visited {
+    background-color: #545B63;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+a:hover, a:active {
+background-color: #474d54;
+}
+
        body {
            background-color: #B3F0EC
        };
    </style>
+   <link rel="buttons" href="../CSS_files/buttons.css">
 <title>Home</title>
 </head>
- 
 <body>
 <div class="center">
    <h1>
@@ -42,12 +57,12 @@
        The new way to Uber.
    </h2>
 </div>
-<div class="left">
+<buttons class="left">
    <a href="create_rides" target="_self">
        Create a Ride
    </a>
 </div>
-<div class="right">
+<buttons class="right">
        <a href="list_rides" target="_self">
            Find A Ride
        </a>
