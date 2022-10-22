@@ -1,0 +1,16 @@
+
+a:link, a:visited {
+    background-color: #545B63;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+a:hover, a:active {
+background-color: #474d54;
+}
+

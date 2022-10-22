@@ -2,63 +2,55 @@
 <html lang="en">
 <head>
 <style>
-    h1 {color: #545B63;
-        font-family: serif;
-        font-size: 350%;
-        }
-    .center {
-        margin: auto;
-        width: 20%;
-        padding: 20px;
-    }
-    a:link {
-        color: #545B63; 
-        background-color: transparent; 
-        text-decoration: none;
-    }
-
-    a:visited {
-        color: #545B63;
-        background-color: transparent;
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: #545B63;
-        background-color: transparent;
-        text-decoration: underline;
-    }
-
-    a:active {
-        color: #545B63;
-        background-color: transparent;
-        text-decoration: underline;
-    }
-        body {background-color: #B3F0EC};
-    </style> 
+   h1 {color: #545B63;
+       font-family: serif;
+       font-size: 350%;
+       }
+   .center {
+       float: center;
+       margin-left: auto;
+       margin-right: auto;
+       width: 25%;
+       padding: 50px;
+   }
+   .left {
+       float: left;
+       margin: auto;
+       width: 50%;
+       padding: 20px;
+   }
+   .right {
+       float: right;
+       margin: auto;
+       width: 30%;
+       padding: 20px;
+   }
+       body {
+           background-color: #B3F0EC
+       };
+   </style>
 <title>Home</title>
 </head>
+ 
 <body>
 <div class="center">
-    <h1>
-        Car Dores
-    </h1>
-    <h2>
-        "... Slogan/Intro" 
-        The new way to Uber.
-    </h2>
+   <h1>
+       Car-Dores
+   </h1>
+   <h2>
+       "... Slogan/Intro"
+       The new way to Uber.
+   </h2>
+</div>
+<div class="left">
+   <a href="create_rides" target="_self">
+       Create a Ride
+   </a>
 </div>
 <div class="right">
-    <a href="create_rides" target="_self">
-        Create a Ride 
-    </a> 
-</div>
-<div class="right">
-        <a href="list_rides" target="_self">
-            Find A Ride
-        </a>
-</div>
-       
-
+       <a href="list_rides" target="_self">
+           Find A Ride
+       </a>
+</div> 
 </body>
 </html>
