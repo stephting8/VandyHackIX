@@ -1,1 +1,22 @@
-<p>CREATE RIDES</p>
+<script type = "text/javascript" src="database_management.js"></script>
+<form>
+    <label for="destination">Destination:</label><br>
+    <input type="text" id="destination" name="destination"><br>
+
+    <label for="time">Departure Time:</label><br>
+    <input type="time" id="time" name="time"><br>
+
+    <label for="num_seats">Number of Seats Available:</label><br>
+    <input type="number" id="num_seats" name="num_seats"><br>
+
+    <label for="duration">Duration of Trip:</label><br>
+    <input type="number" id="duration-hr" name="destination-hr" value="0" min="0" max="10">
+    <label for="duration-hr">hours</label><br>
+    <input type="number" id="duration-min" name="duration-min" value="0" min="0" max="60">
+    <label for="duration-min">minutes</label><br>
+
+    <label for="comments">Comments:</label><br>
+    <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br>
+
+    <input type="button" value="Submit" onclick="submit()">
+</form>
