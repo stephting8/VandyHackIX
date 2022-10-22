@@ -1,1 +1,72 @@
-<p>LISTRIDES</p>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#rides td, #rides th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#rides tr:nth-child(even){background-color: #f2f2f2;}
+
+/* #rides tr:hover {background-color: #ddd;} */
+
+#rides th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+    
+</style>
+
+<!DOCTYPE html>
+<html>
+    <table id="rides"> 
+        <th>Destination</th>
+        <th>Time</th>
+        <th>Number of Seats Available</th>
+        <th>Duration of Trip</th>
+        <th>Comments</th>
+        <td></td>
+
+        {% for doc in docs_unfilled %}
+            
+        <tr>
+            <td>{{doc["destination"]}}</td>
+            <td>{{doc["time"]}}</td>
+            <td>{{doc["num_seats"]}}</td>
+            <td>{{doc["duration_hr"]}} - {{doc["duration_min"]}}</td>
+            <td>{{doc["comments"]}}</td>
+            <td id={{doc._id}} onclick="join_ride(this.id)"><a href="list_rides">Request to Join</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</html>
+
+<script>
+    function join_ride(id){
+        var params = "id=" + id
+        var req = new XMLHttpRequest();
+        var url = "{{ url_for('riderequested') }}";
+
+        req.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            } else {
+                console.log("processing");
+            }
+        }
+
+        req.open('POST', url, true);
+        req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        req.send(params);
+        console.log(params);
+        alert("you have joined a ride and notification has been sent to the driver")
+    }
+</script>
