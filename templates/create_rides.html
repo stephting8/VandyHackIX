@@ -16,14 +16,8 @@
     <input type="number" id="duration-min" name="duration-min" value="0" min="0" max="60">
     <label for="duration-min">minutes</label><br>
 
-    <label for="contact">Contact Information:</label><br>
+    <label for="contact">Email:</label><br>
     <input type="text" id="contact" name="contact"><br>
-    <select name="contact-method" id="contact-method">
-        <option>Phone Number</option>
-        <option>Email</option>
-        <option>Social Media (Specify Platform)</option>
-        </select>
-        <br>
 
     <label for="comments">Comments:</label><br>
     <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br>
@@ -48,9 +42,8 @@
         var duration_hr=document.getElementById('duration-hr').value;
         var duration_min=document.getElementById('duration-min').value;
         var contact=document.getElementById('contact').value;
-        var contact_method=document.getElementById('contact-method').value;
         var comments=document.getElementById('comments').value;
-        var params = "destination=" + destination + "&time=" + time + "&num_seats=" + num_seats+ "&duration_hr=" + duration_hr + "&duration_min=" + duration_min+ "&contact=" + contact+ "&contact_method=" + contact_method+ "&comments=" + comments;
+        var params = "destination=" + destination + "&time=" + time + "&num_seats=" + num_seats+ "&duration_hr=" + duration_hr + "&duration_min=" + duration_min+ "&contact=" + contact+ "&comments=" + comments;
 
         var req = new XMLHttpRequest();
         var url = "{{ url_for('insertrides') }}";
