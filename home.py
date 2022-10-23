@@ -33,7 +33,7 @@ GOOGLE_CLIENT_ID = "996812295199-qmebg894qq92plha2fe696lbstckvoq6.apps.googleuse
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")  #set the path to where the .json file you got Google console is
 flow = Flow.from_client_secrets_file(  #Flow is OAuth 2.0 a class that stores all the information on how we want to authorize our users
     client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],  #here we are specifing what do we get after the authorization
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "openid"],  #here we are specifing what do we get after the authorization "https://www.googleapis.com/auth/userinfo.email"
     redirect_uri="http://127.0.0.1:5000/callback"  #and the redirect URI is the point where the user will end up after the authorization
 )
 def login_is_required(function):  #a function to check if the user is authorized or not
@@ -53,7 +53,8 @@ def home():
     # return f"Hello {session['name']}! <br/> <a href='/logout'><button>Logout</button></a>"
     user = session['name']
     # email = session['email']
-    return render_template('home.html', user=user) #, email=email)
+    print(session)
+    return render_template('home.html', user=user, session=session) #, email=email)
 
 @app.route('/')
 def index():
@@ -73,18 +74,19 @@ def riderequested():
         mongo.db.rides.update_one({"_id":ObjectId(id)},{'$inc': {'requests_left': -1}})
 
 
+
     return
 
 
 @app.route('/create_rides')
 def createrides():
-
+    user = session['name']
     return render_template('create_rides.html')
 
 
 @app.route('/insert_rides', methods=['POST'])
 def insertrides():
-    print("test")
+    user = session['name']
     if request.method == 'POST':
         print("got POST")
         destination=request.form['destination']
@@ -92,15 +94,21 @@ def insertrides():
         num_seats = request.form['num_seats']
         duration_hr = request.form['duration_hr']
         duration_min = request.form['duration_min']
+        contact = request.form['contact']
+        contact_method = request.form['contact_method']
         comments = request.form['comments']
+
 
         print("here")
         
-        insert=mongo.db.rides.insert_one({"destination":destination, 
+        insert=mongo.db.rides.insert_one({  "driver_name":user,
+                                            "destination":destination, 
                                             "time":time, 
                                             "num_seats":num_seats,
                                             "duration_hr":duration_hr,
                                             "duration_min":duration_min,
+                                            "contact":contact,
+                                            "contact_method":contact_method,
                                             "comments":comments, 
                                             "filled":False,
                                             "requests_left":10})
@@ -110,10 +118,6 @@ def insertrides():
 @app.route('/profile')
 def profile():
      return render_template('profile.html')
-
-@app.route('/instructions')
-def instructions():
-     return render_template('instructions.html')
 
 
 @app.route("/login")  #the page where the user can login
