@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<!-- 
 <form>
     <label for="destination">Destination:</label><br>
     <input type="text" id="destination" name="destination"><br>
@@ -22,7 +22,7 @@
     <table>
         <tr id="test">hi</tr>
     </table>
-    <!-- <button onclick="submitForm()">test</button> -->
+    <button onclick="submitForm()">test</button> 
     <button id='submit' type="submit" onclick="submitForm()" href="create_rides">Submit</button>
      
 
@@ -60,5 +60,213 @@
         console.log(params);
     }
 
-</script>
-</html>
+</script> -->
+<style>
+input {
+  caret-color: black;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ecf0f3;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  place-items: center;
+  overflow: hidden;
+  font-family: poppins;
+}
+
+.container {
+  position: relative;
+  width: 550px;
+  height: 600px;
+  border-radius: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  background: #ecf0f3;
+  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+  overflow:auto;
+}
+
+.brand-title {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #62aedd;
+  letter-spacing: 1px;
+}
+
+.inputs {
+  text-align: left;
+  margin-top: 30px;
+}
+
+label, input, button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+label {
+  margin-bottom: 4px;
+}
+
+label:nth-of-type(2) {
+  margin-top: 12px;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+input {
+  background: #ecf0f3;
+  padding: 10px;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+button {
+  color: white;
+  margin-top: 20px;
+  background: #1DA1F2;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+  transition: 0.5s;
+}
+
+button:hover {
+  box-shadow: none;
+}
+
+a {
+  position: absolute;
+  font-size: 8px;
+  bottom: 4px;
+  right: 4px;
+  text-decoration: none;
+  color: black;
+  background: yellow;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>
+
+<!-- Container element -->
+<div class="parallax"></div>
+</style>
+
+<!-- <div style="height:1000px;background-color:red;font-size:36px">
+    Scroll Up and Down this page to see the parallax scrolling effect.
+    This div is just here to enable scrolling.
+    Tip: Try to remove the background-attachment property to remove the scrolling effect.
+    </div>
+ -->
+<div class="container">
+    <div class="brand-title">Create a Ride</div>
+    <div class="inputs">
+      <label for="destination">Destination:</label><br>
+      <input type="text" id="destination" name="destination"><br>
+  
+      <label for="time">Departure Time:</label><br>
+      <input type="time" id="time" name="time"><br>
+  
+      <label for="num_seats">Number of Seats Available:</label><br>
+      <input type="number" id="num_seats" name="num_seats" value="0" min="1"><br>
+  
+      <label for="duration">Duration of Trip:</label><br>
+      <input type="number" id="duration-hr" name="destination-hr" value="0" min="0" max="10">
+      <label for="duration-hr">hours</label><br>
+
+      <input type="number" id="duration-min" name="duration-min" value="0" min="0" max="60">
+      <label for="duration-min">minutes</label><br>
+  
+      <label for="comments">Comments:</label><br>
+      <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br>
+
+      
+      <button type="submit">Create Ride</button>
+
+    </div>
+    <form>
+        <!-- <label for="destination">Destination:</label><br>
+        <input type="text" id="destination" name="destination"><br>
+    
+        <label for="time">Departure Time:</label><br>
+        <input type="time" id="time" name="time"><br>
+    
+        <label for="num_seats">Number of Seats Available:</label><br>
+        <input type="number" id="num_seats" name="num_seats"><br>
+    
+        <label for="duration">Duration of Trip:</label><br>
+        <input type="number" id="duration-hr" name="destination-hr" value="0" min="0" max="10">
+        <label for="duration-hr">hours</label><br>
+        <input type="number" id="duration-min" name="duration-min" value="0" min="0" max="60">
+        <label for="duration-min">minutes</label><br>
+    
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br> -->
+    
+        <!-- <table>
+            <tr id="test">hi</tr>
+        </table>
+        <button onclick="submitForm()">test</button> 
+        <button id='submit' type="submit" onclick="submitForm()" href="create_rides">Submit</button>
+     -->
+    </form>
+    
+    <script>
+        function submitForm(){
+            // var test = document.getElementById('test').innerHTML
+            // test+="hello"
+            console.log("hi");
+            var destination = document.getElementById("destination").value;
+            var time=document.getElementById('time').value;
+            var num_seats=document.getElementById('num_seats').value;
+            var duration_hr=document.getElementById('duration-hr').value;
+            var duration_min=document.getElementById('duration-min').value;
+            var comments=document.getElementById('comments').value;
+            var params = "destination=" + destination + "&time=" + time + "&num_seats=" + num_seats+ "&duration_hr=" + duration_hr + "&duration_min=" + duration_min+ "&comments=" + comments;
+    
+            var req = new XMLHttpRequest();
+            var url = "{{ url_for('insertrides') }}";
+    
+            req.onreadystatechange = function()
+            {
+                if(this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                } else {
+                    console.log("processing");
+                }
+            }
+    
+            req.open('POST', url, true);
+            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            req.send(params);
+            alert("params: "+params);
+            console.log(params);
+        }
+    
+    </script>
+  </div>
+  
+  </html>
