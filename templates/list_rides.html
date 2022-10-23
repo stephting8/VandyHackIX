@@ -39,24 +39,80 @@
     }
 
     #rides{
-        width: 100%;
         display:inline-flex;
-    justify-content: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .6);
     }
 
     body {
         align-items: center;
-            background-image: linear-gradient(rgb(88, 190, 218), pink);
+        background-image: linear-gradient(rgb(88, 190, 218), pink);
     }
+
+    .navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+  background-color: #666;
+  color: white;
+}
+
+/* div{
+        width: 100%;
+        display:inline-flex;
+    justify-content: center;
+    } */
+
     </style>
     </head>
 
 <!DOCTYPE html>
 <html>
 
+    <!-- <p id="user">{{user}}</p> -->
+    <div class="navbar">
+        <a href="#" class="left">Home</a>
+        <a href="create_rides">Create a Ride</a>
+        <a href="list_rides">Find a Ride</a>
+        <a href="profile" class="right">Profile</a>
+        <a href="logout" class="right">Logout</a>
+        <p style="float: right; color: white;" id="user">{{user}}!</p>
+      </div>
+      <p></p>
+    <div>
 
     <p id="user">{{user}}</p>
-    <div>
+    <div style="        width: 100%;
+    display:inline-flex;
+justify-content: center;">
     <table id="rides"> 
         <td>Driver Name</td>
         <th>Destination</th>
@@ -82,6 +138,9 @@
     {% endfor %}
     </table>
     </div>
+    <center>
+        <br>
+        <br>
     <label for="contact">Contact Information:</label><br>
     <input type="text" id="contact" name="contact"><br>
     <select id="contact-method" name="contact">
@@ -89,6 +148,7 @@
         <option>Phone Number</option>
         <option>Social Media (Specify Platform)</option>
     </select>
+</center>
 
 </html>
 
