@@ -27,6 +27,7 @@
 <!DOCTYPE html>
 <html>
     <table id="rides"> 
+        <td>Driver Name</td>
         <th>Destination</th>
         <th>Time</th>
         <th>Number of Seats Available</th>
@@ -37,10 +38,11 @@
         {% for doc in docs_unfilled %}
             
         <tr>
+            <td>{{doc["driver_name"]}}</td>
             <td>{{doc["destination"]}}</td>
             <td>{{doc["time"]}}</td>
             <td>{{doc["num_seats"]}}</td>
-            <td>{{doc["duration_hr"]}} - {{doc["duration_min"]}}</td>
+            <td>{{doc["duration_hr"]}} hrs {{doc["duration_min"]}} mins</td>
             <td>{{doc["comments"]}}</td>
             <td id={{doc._id}} onclick="join_ride(this.id)"><a href="list_rides">Request to Join</a></td>
         </tr>
