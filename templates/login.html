@@ -20,15 +20,15 @@ button {
   display: inline-flex;
   fill: currentcolor;
   font-family: "Google Sans",Roboto,Arial,sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  height: 48px;
+  font-size: 25px;
+  font-weight: 100;
+  height: 52px;
   justify-content: center;
   letter-spacing: .25px;
   line-height: normal;
   max-width: 100%;
   overflow: visible;
-  padding: 2px 24px;
+  padding: 20px 240px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -92,22 +92,38 @@ button {
         margin: 10px 5px;  
     }   
         
-     
+     /*add a picture of the logo don't have it*/
  .container {   
-        width: 20%;
-        padding: 50px;   
-        background-color: rgb(0, 0, 0); 
-        top: 50%;
-        left:50%;
-        position:absolute;
-        transform: translate(-50%,-50%)
+  width: 100%;
+        display:inline-flex;
+    justify-content: center; 
+    
     }   
+    h1{
+      font-size: 70px;
+  font-weight: 600;
+  background-image: linear-gradient(to left, #ffffff, #000000);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+    }
+    d4{
+      width: 700px;
+    height: 60%;
+    }
+    form{
+      transform: translate(0,110%);
+    }
+  
 </style>   
 </head>    
 <body>    
-    <center> <h1> Car-Dores Login </h1> </center>   
+    <center> <h1> Car-Dores Login </h1> </center>  
+    <d4>
+    <center><img src="icon.png" alt="logo" width="500" height="300"></center>
+  </d4>
     <form>  
-        <div class="container">   
+        <div class="container"> 
             <!-- <p></p>
             <FONT color = "White"><label>Username : </label>  
             <input type="text" placeholder="Enter Username" name="username" required> <p></p>
@@ -117,8 +133,8 @@ button {
             <input type="checkbox" checked="checked"> Remember me <p></p>  
             Forgot password?<a href="#"><font color = "red"> click here!</font> </a><p></p> 
             Don't have an account <a href="#"> <font color = "red"> click here!</font></a>    -->
-            <a href='login'>Login</a>
+            <button onclick= "location.href='login'" type="button">Login</button>
         </div>   
     </form>     
 </body>     
-</html> 
+</html>
