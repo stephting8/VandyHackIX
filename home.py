@@ -1,6 +1,6 @@
 from flask import Flask, session, abort, redirect, request, render_template
 
-from flask_mail import Mail
+from flask_mail import Mail, Message
 
 from mongodb import mongo
 from bson import ObjectId
@@ -15,16 +15,23 @@ import google.auth.transport.requests
 
 
 app = Flask(__name__)
+mail = Mail(app)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config["DEBUG"] = True
 
 #MAIL
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-# app.config['MAIL_USERNAME'] = 'your_email@gmail.com'
-# app.config['MAIL_PASSWORD'] = 'your_password'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_SERVER']='smtp.mailtrap.io'
+app.config['MAIL_PORT'] = 2525
+app.config['MAIL_USERNAME'] = 'be616fed205585'
+app.config['MAIL_PASSWORD'] = '5cf7ecffae5846'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+# app.config['MAIL_DEBUG'] = True
+# app.config['MAIL_SUPRESS_SEND'] = False
+# app.config['TESTING'] = True
+
+mail = Mail(app)
 
 #SSO
 app.secret_key = "GeekyHuman.com" 
@@ -71,11 +78,17 @@ def riderequested():
     if request.method == 'POST':
 
         id = request.form['id']
+        contact_method = request.form['contact_method']
+        contact = request.form['contact']
         mongo.db.rides.update_one({"_id":ObjectId(id)},{'$inc': {'requests_left': -1}})
 
+        email = mongo.db.rides.find_one({"_id":ObjectId(id)},{"contact":1})["contact"]
 
-
-    return
+        msg = Message(subject = "Someone Requested a Ride!", sender = 'jane@mailtrap.io', recipients = [email])
+        msg.body = "Here is a ride. Contact method is "+contact_method+", contact information is "+contact
+        mail.send(msg)
+        # return()
+    return ("")
 
 
 @app.route('/create_rides')
@@ -95,7 +108,6 @@ def insertrides():
         duration_hr = request.form['duration_hr']
         duration_min = request.form['duration_min']
         contact = request.form['contact']
-        contact_method = request.form['contact_method']
         comments = request.form['comments']
 
 
@@ -108,7 +120,6 @@ def insertrides():
                                             "duration_hr":duration_hr,
                                             "duration_min":duration_min,
                                             "contact":contact,
-                                            "contact_method":contact_method,
                                             "comments":comments, 
                                             "filled":False,
                                             "requests_left":10})
