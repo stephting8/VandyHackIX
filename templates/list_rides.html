@@ -1,5 +1,4 @@
 <style>
-
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -7,22 +6,11 @@
 }
 
 #rides td, #rides th {
-    top: 50%;
-    left:50%;
-  border: 25px solid rgb(255, 255, 255);
-  opacity: 1;
-  background-image: linear-gradient(rgb(246, 240, 240));
-  padding-top: 1px;
-  padding-bottom: 1px;
-  border-radius: 20px;
-  border-width: 5px;
-  background: #f4f7f7;
-  padding: 2px;
-  width: 20px;
-  height: 15px;
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-#rides tr:nth-child(even){opacity: .5;}
+#rides tr:nth-child(even){background-color: #f2f2f2;}
 
 /* #rides tr:hover {background-color: #ddd;} */
 
@@ -42,14 +30,10 @@
   height: 15px;
 }
     
-body {
-        background-image: linear-gradient(rgb(88, 190, 218), pink);
-}
 </style>
 
 <!DOCTYPE html>
 <html>
-<body>
     <table id="rides"> 
         <td>Driver Name</td>
         <th>Destination</th>
@@ -72,12 +56,20 @@ body {
         </tr>
     {% endfor %}
     </table>
-</body>
+    <label for="contact">Contact Information:</label><br>
+    <input type="text" id="contact" name="contact"><br>
+    <select id="contact-method" name="contact">
+        <option>Email</option>
+        <option>Phone Number</option>
+        <option>Social Media (Specify Platform)</option>
+    </select>
 </html>
 
 <script>
     function join_ride(id){
-        var params = "id=" + id
+        var contact = document.getElementById("contact").value
+        var contact_method = document.getElementById("contact-method").value
+        var params = "id=" + id+"&contact_method=" + contact_method +"&contact=" + contact
         var req = new XMLHttpRequest();
         var url = "{{ url_for('riderequested') }}";
 
