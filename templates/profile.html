@@ -1,0 +1,20 @@
+<p>{{user}}</p>
+
+<table id="requests"> 
+    <td>Driver Name</td>
+    <th>Destination</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Status</th>
+
+    {% for doc in doc_requests %}
+        
+    <tr>
+        <td>{{doc["driver_name"]}}</td>
+        <td>{{doc["destination"]}}</td>
+        <td>{{doc["date"]}}</td>
+        <td>{{doc["time"]}}</td>
+        <td>{{doc["accepted"]}}</td>
+    </tr>
+{% endfor %}
+</table>

@@ -70,8 +70,9 @@ def index():
 
 @app.route('/list_rides')
 def rides():
-    docs_unfilled = mongo.db.rides.find({"filled":False})
-    return render_template('list_rides.html', docs_unfilled = docs_unfilled)
+    user = session['name']
+    docs_unfilled = mongo.db.rides.find({"$and":[ {"num_seats":{"$gt": 0}}, {"requests_left":{"$gt": 0}}]})
+    return render_template('list_rides.html', docs_unfilled = docs_unfilled, user=user)
 
 @app.route('/list_rides/requested', methods=['POST'])
 def riderequested():
@@ -80,12 +81,27 @@ def riderequested():
         id = request.form['id']
         contact_method = request.form['contact_method']
         contact = request.form['contact']
+        name_of_rider = request.form['name_of_rider']
         mongo.db.rides.update_one({"_id":ObjectId(id)},{'$inc': {'requests_left': -1}})
 
-        email = mongo.db.rides.find_one({"_id":ObjectId(id)},{"contact":1})["contact"]
+        data = mongo.db.rides.find_one({"_id":ObjectId(id)})
+        email = data["contact"]
+        driver_name = data["driver_name"]
+        destination = data["destination"]
+        date = data["date"]
+        time = data["time"]
+
+        data = mongo.db.rides.find_one({"_id":ObjectId(id)},{"contact":1})
+        insert = mongo.db.requests.insert_one({"ride_id":ObjectId(id), 
+                                        "rider_name":name_of_rider, 
+                                        "driver_name":driver_name,
+                                        "destination":destination, 
+                                        "date":date, 
+                                        "time":time,
+                                        "accepted":"Pending"})
 
         msg = Message(subject = "Someone Requested a Ride!", sender = 'jane@mailtrap.io', recipients = [email])
-        msg.body = "Here is a ride. Contact method is "+contact_method+", contact information is "+contact
+        msg.body = "Here is a ride. Contact method is "+contact_method+", contact information is "+contact+". Open link to accept: http://127.0.0.1:5000/accept?id="+id+" and this link to deny request: http://127.0.0.1:5000/deny?id="+id
         mail.send(msg)
         # return()
     return ("")
@@ -93,7 +109,6 @@ def riderequested():
 
 @app.route('/create_rides')
 def createrides():
-    user = session['name']
     return render_template('create_rides.html')
 
 
@@ -104,9 +119,10 @@ def insertrides():
         print("got POST")
         destination=request.form['destination']
         time = request.form['time']
-        num_seats = request.form['num_seats']
-        duration_hr = request.form['duration_hr']
-        duration_min = request.form['duration_min']
+        date = request.form['date']
+        num_seats = int(request.form['num_seats'])
+        duration_hr = int(request.form['duration_hr'])
+        duration_min = int(request.form['duration_min'])
         contact = request.form['contact']
         comments = request.form['comments']
 
@@ -116,6 +132,7 @@ def insertrides():
         insert=mongo.db.rides.insert_one({  "driver_name":user,
                                             "destination":destination, 
                                             "time":time, 
+                                            "date":date,
                                             "num_seats":num_seats,
                                             "duration_hr":duration_hr,
                                             "duration_min":duration_min,
@@ -126,9 +143,25 @@ def insertrides():
         print(insert)
     return ("")
 
+@app.route('/accept')
+def accept():
+    id = request.args.get('id')
+    mongo.db.rides.update_one({"_id":ObjectId(id)},{'$inc': {'num_seats': -1}})
+    mongo.db.requests.update_one({"ride_id":ObjectId(id)},{'$set': {'accepted': "Accepted!"}})
+    return "Accepted"
+
+@app.route('/deny')
+def deny():
+    id = request.args.get('id')
+    mongo.db.rides.update_one({"_id":ObjectId(id)},{'$inc': {'requests_left': 1}})
+    mongo.db.requests.update_one({"ride_id":ObjectId(id)},{'$set': {'accepted': "Denied"}})
+    return "Denied"
+
 @app.route('/profile')
 def profile():
-     return render_template('profile.html')
+    user = session['name']
+    doc_requests = mongo.db.requests.find({"rider_name":user})
+    return render_template('profile.html', user=user, doc_requests=doc_requests)
 
 
 @app.route("/login")  #the page where the user can login

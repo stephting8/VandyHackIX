@@ -1,34 +1,66 @@
-<style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+<head><style>
 
-#rides td, #rides th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
 
-#rides tr:nth-child(even){background-color: #f2f2f2;}
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
 
-/* #rides tr:hover {background-color: #ddd;} */
 
-#rides th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
-}
+    #rides td, #rides tr{
+      border: 2px solid rgb(255, 255, 255);
+      opacity: .9;
+      border-radius: 20px;
+      border-width: 1px;
+      background: #f7f7f7;
+      padding: 5px;
+      width: 10px;
+      height: 50px;
+    }
     
-</style>
+    #rides tr:nth-child(even){
+        opacity: 1;
+        align-items: center;
+    }
+    
+    /*#rides tr:hover {background-color: rgb(197, 97, 97);}*/
+    
+    #rides th {
+        border: 2px solid rgb(255, 255, 255);
+      opacity: .9;
+      border-radius: 20px;
+      border-width: 5px;
+      background: #f7f7f7;
+      padding: 5px;
+      width: 20px;
+      height: 15px;
+    
+    }
+
+    #rides{
+        width: 100%;
+        display:inline-flex;
+    justify-content: center;
+    }
+
+    body {
+        align-items: center;
+            background-image: linear-gradient(rgb(88, 190, 218), pink);
+    }
+    </style>
+    </head>
 
 <!DOCTYPE html>
 <html>
+
+
+    <p id="user">{{user}}</p>
+    <div>
     <table id="rides"> 
         <td>Driver Name</td>
         <th>Destination</th>
+        <th>Date</th>
         <th>Time</th>
         <th>Number of Seats Available</th>
         <th>Duration of Trip</th>
@@ -40,6 +72,7 @@
         <tr>
             <td>{{doc["driver_name"]}}</td>
             <td>{{doc["destination"]}}</td>
+            <td>{{doc["date"]}}</td>
             <td>{{doc["time"]}}</td>
             <td>{{doc["num_seats"]}}</td>
             <td>{{doc["duration_hr"]}} hrs {{doc["duration_min"]}} mins</td>
@@ -48,6 +81,7 @@
         </tr>
     {% endfor %}
     </table>
+    </div>
     <label for="contact">Contact Information:</label><br>
     <input type="text" id="contact" name="contact"><br>
     <select id="contact-method" name="contact">
@@ -55,13 +89,15 @@
         <option>Phone Number</option>
         <option>Social Media (Specify Platform)</option>
     </select>
+
 </html>
 
 <script>
     function join_ride(id){
+        var user = document.getElementById('user').innerHTML
         var contact = document.getElementById("contact").value
         var contact_method = document.getElementById("contact-method").value
-        var params = "id=" + id+"&contact_method=" + contact_method +"&contact=" + contact
+        var params = "id=" + id+"&contact_method=" + contact_method +"&contact=" + contact+"&name_of_rider=" + user
         var req = new XMLHttpRequest();
         var url = "{{ url_for('riderequested') }}";
 
